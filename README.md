@@ -1,2 +1,3 @@
 # Ahorcado_David
-ahorado guapo guapo
+
+Funciona totalmente, falta de pulir algún detalle.
