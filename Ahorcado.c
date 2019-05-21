@@ -66,7 +66,7 @@ int main() {
            oportunidades = oportunidades - 1;
          }}
         else {
-         printf("Ya se ha introducido este caracter/n" );
+         printf("Ya se ha introducido este caracter " );
         }
 
         printf("\n");
@@ -93,7 +93,7 @@ int main() {
         printf("Introduzca una letra:");
         scanf("\n%c",&pal);
             system("cls");
-            
+
 
     }while(oportunidades != 0);
 
@@ -101,6 +101,7 @@ int main() {
     if(win) {
         printf("\n");
         printf("-----Ganaste!!!----");
+
     }
     else {
         printf("\n");
@@ -108,7 +109,7 @@ int main() {
     }
 
     printf("\n");
-    system("PAUSE");
+  
     return 0;
 
 }
