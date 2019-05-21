@@ -92,6 +92,8 @@ int main() {
 
         printf("Introduzca una letra:");
         scanf("\n%c",&pal);
+            system("cls");
+            
 
     }while(oportunidades != 0);
 
