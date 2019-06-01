@@ -1,0 +1,104 @@
+Destpués de mucho pegarme y mirar por internet he conseguido hacer este, no se si os valdrá de referencia para algo.
+
+#include <stdio.h>
+#include <string.h>
+#include <time.h>
+#include <stdlib.h>
+
+#define MAX_INTENTOS 8
+void mostrar(char* cad, int* aciertos);       
+void estaLetra(char letra,char *cad, int* aciertos);
+int comprobado(char* cad,int* aciertos);
+int main ()
+{
+  int max_palabras;
+  printf("Cuántas palabras quiere introducir?: ");
+  scanf("%i", &max_palabras);
+    char cadenas[max_palabras][MAX_INTENTOS+1];  
+ char *cad;
+    int i, n_palabra, n_intentos, *aciertos;
+ char letra;
+ int ganar;
+ 
+ srand(time(NULL));
+ 
+ 
+ i = 0;
+ do{ 
+  printf("Introduce una palabra de como máximo %d caracteres\n",MAX_INTENTOS); 
+  scanf("%s",cadenas[i]);
+  i++;
+ }while (i<max_palabras); 
+ 
+ if (i==max_palabras)
+  printf("\nYa ha introducido el número máximo de palabras permitidas, ahora seleccionamos una y empezamos a jugar al ahorcado\n\n");
+  
+ n_palabra = rand()%max_palabras;
+ 
+ cad = cadenas[n_palabra]; // cad contiene la palabra a adivinar
+ 
+ aciertos = (int *) malloc (sizeof(int)*strlen(cad)); // aciertos contendrá 0 en las posiciones por acertar y 1 en las acertadas
+ 
+ //inicializamos aciertos a todo 0
+ for (i=0; i<strlen(cad)-1; i++) {
+  aciertos[i]=0;
+ }
+ aciertos[strlen(cad)]=1;//el intro del final
+ 
+ n_intentos = MAX_INTENTOS;
+ 
+ do{
+  printf("Introduzca una letra. Tiene %d intentos.\n",n_intentos);
+  printf("La palabra a adivinar es: ");
+  mostrar(cad,aciertos);
+  
+  //leemos la letra
+  
+  while(getchar()!='\n');
+  scanf("%c",&letra);
+  
+  //la buscamos en la palabra
+  estaLetra(letra,cad,aciertos);
+  
+  //comprobamos si ya hemos adivinado la palabra
+  
+  if (ganar = comprobado(cad,aciertos))
+   printf("Enhorabuena! Ha adivinado la palabra! La palabra era %s \n",cad);
+  else {
+   n_intentos--;
+  }
+ }while((!ganar) && (n_intentos>0));
+ 
+ if (n_intentos==0)
+  printf("Lo sentimos! Ha perdido! La palabra era %s \n",cad);
+ 
+    return 0;
+}
+void mostrar(char* cad, int* aciertos){
+ int i;
+ for (i=0; i<strlen(cad); i++) {
+  if (aciertos[i]==1)
+   printf(" %c ",cad[i]);
+  else 
+   printf(" - ");
+ }
+ printf("\n");
+}
+void estaLetra(char letra,char *cad, int* aciertos){
+ int i;
+ for (i=0; i<strlen(cad); i++) {
+  if (cad[i]==letra)
+   aciertos[i]=1;
+ }
+}
+int comprobado(char *cad,int* aciertos){
+ int i;
+ int terminado = 1; //supongo que ya acerté todas...
+ for (i=0; i<strlen(cad); i++) {
+  if (aciertos[i]==0) {
+   terminado = 0;
+  }
+ }
+ return terminado;
+
+}
